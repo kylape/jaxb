@@ -239,7 +239,7 @@ public final class DatatypeConverterImpl implements DatatypeConverterInterface {
         int i = 0;
         int len = literal.length();
         char ch;
-        boolean value = false;
+        Boolean value = null;
 
         if (literal.length() <= 0) {
             return null;
@@ -260,29 +260,28 @@ public final class DatatypeConverterImpl implements DatatypeConverterInterface {
                 break;
             case 't':
                 String strTrue = "rue";
-                do {
-                    ch = literal.charAt(i++);
-                } while ((strTrue.charAt(strIndex++) == ch) && i < len && strIndex < 3);
+                if (i < len) {
+                    do {
+                        ch = literal.charAt(i++);
+                    } while ((strTrue.charAt(strIndex++) == ch) && i < len && strIndex < 3);
+                }
 
                 if (strIndex == 3) {
                     value = true;
-                } else {
-                    return false;
                 }
 //                    throw new IllegalArgumentException("String \"" + literal + "\" is not valid boolean value.");
 
                 break;
             case 'f':
                 String strFalse = "alse";
-                do {
-                    ch = literal.charAt(i++);
-                } while ((strFalse.charAt(strIndex++) == ch) && i < len && strIndex < 4);
-
+                if (i < len) {
+                    do {
+                        ch = literal.charAt(i++);
+                    } while ((strFalse.charAt(strIndex++) == ch) && i < len && strIndex < 4);
+                }
 
                 if (strIndex == 4) {
                     value = false;
-                } else {
-                    return false;
                 }
 //                    throw new IllegalArgumentException("String \"" + literal + "\" is not valid boolean value.");
 
